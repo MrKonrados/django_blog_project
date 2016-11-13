@@ -1,0 +1,10 @@
+<h1>Posty</h1>
+
+{% for post in object_list %}
+    <h2><a href="{{ post.slug }}">{{ post.title }}</a></h2>
+    <small>{{ post.modified }}, {{ post.author }}</small>
+    <div>{{ post.content }}</div>
+
+{% empty %}
+    <h3>Brak wpisów</h3>
+{% endfor %}
