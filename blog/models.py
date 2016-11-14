@@ -23,6 +23,7 @@ class Post(models.Model):
 
 
 class User(models.Model):
+    username = models.CharField(max_length=250)  # TODO: musi być unikalny
     first_name = models.CharField(max_length=250)
     last_name = models.CharField(max_length=250)
 

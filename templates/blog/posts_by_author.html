@@ -1,6 +1,6 @@
-<h1>Posty</h1>
+<h1>Posty danego autora</h1>
 
-{% for post in post_list %}
+{% for post in author_posts %}
     <h2><a href="{% url 'post_detail' post.slug %}">{{ post.title }}</a></h2>
     <small>{{ post.modified }}, {{ post.author }}</small>
     <hr/>
