@@ -2,7 +2,7 @@
 
 {% for post in post_list %}
     <h2><a href="{% url 'post_detail' post.slug %}">{{ post.title }}</a></h2>
-    <small>{{ post.modified }}, {{ post.author }}</small>
+    <small>{{ post.modified }}, <a href="{% url 'posts_by_author' post.author.username %}">{{ post.author }}</a></small>
     <hr/>
     <div>{{ post.content|truncatewords:40 }}</div>
 

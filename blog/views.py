@@ -7,12 +7,10 @@ from .models import Post, User
 
 class PostListView(ListView):
     queryset = Post.objects.order_by('-modified')
-    # TODO: Link do postów autora
 
 
 class PostDetailView(DetailView):
     model = Post
-    # context_object_name = 'post'
 
 
 class AuthorPostList(ListView):
@@ -22,3 +20,34 @@ class AuthorPostList(ListView):
     def get_queryset(self):
         self.author = get_object_or_404(User, username=self.args[0])
         return Post.objects.filter(author=self.author)
+
+
+class PostCreateView():
+    pass
+
+
+class PostEditView():
+    pass
+
+
+class PostDeleteView():
+    pass
+
+
+class UserListView():
+    pass
+
+
+class UserCreateView():
+    pass
+
+
+class UserEditView():
+    pass
+
+
+class UserDeleteView():
+    pass
+    # TODO: okno logowania
+    # TODO: POSTY: crud
+    # TODO: Uzytkownicy: crud
