@@ -1,11 +1,27 @@
-<h1>Posty</h1>
+{% extends "blog/base.html" %}
+{% block content %}
+    <div class="row">
+        {% for post in post_list %}
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <img src="http://lorempixel.com/640/480/technics"/>
+                    <div class="caption">
+                        <h3 class="h4"><a href="{% url 'post_detail' post.slug %}">{{ post.title }}</a></h3>
+                        <p>
+                            <small>{{ post.modified }}, <a
+                                    href="{% url 'posts_by_author' post.author.username %}">{{ post.author }}</a>
+                            </small>
+                        </p>
+                        <p>{{ post.content|truncatewords:40 }}</p>
+                        <p><a href="{% url 'post_detail' post.slug %}" class="btn btn-primary"
+                              role="button">więcej...</a></p>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-md-12"><h3>Brak wpisów</h3></div>
+        {% endfor %}
+    </div>
+{% endblock %}
 
-{% for post in post_list %}
-    <h2><a href="{% url 'post_detail' post.slug %}">{{ post.title }}</a></h2>
-    <small>{{ post.modified }}, <a href="{% url 'posts_by_author' post.author.username %}">{{ post.author }}</a></small>
-    <hr/>
-    <div>{{ post.content|truncatewords:40 }}</div>
 
-{% empty %}
-    <h3>Brak wpisów</h3>
-{% endfor %}

@@ -14,12 +14,12 @@ class PostDetailView(DetailView):
 
 
 class AuthorPostList(ListView):
-    template_name = 'blog/posts_by_author.html'
-    context_object_name = 'author_posts'
+    template_name = 'blog/post_list.html'
+    context_object_name = 'post_list'
 
     def get_queryset(self):
         self.author = get_object_or_404(User, username=self.args[0])
-        return Post.objects.filter(author=self.author)
+        return Post.objects.filter(author=self.author).order_by("-modified")
 
 
 class PostCreateView():
