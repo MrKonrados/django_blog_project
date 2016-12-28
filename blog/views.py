@@ -1,8 +1,9 @@
 from django.shortcuts import get_object_or_404
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView
 
-from .models import Post, User
+from .models import Post, Author
 
 
 class PostListView(ListView):
@@ -18,12 +19,14 @@ class AuthorPostList(ListView):
     context_object_name = 'post_list'
 
     def get_queryset(self):
-        self.author = get_object_or_404(User, username=self.args[0])
-        return Post.objects.filter(author=self.author).order_by("-modified")
+        author = get_object_or_404(Author, username=self.args[0])
+        return Post.objects.filter(author=author).order_by("-modified")
 
 
-class PostCreateView():
-    pass
+class PostCreate(CreateView):
+    template_name = "blog/post_form.html"
+    model = Post
+    fields = ['title', 'author', 'content']
 
 
 class PostEditView():
@@ -32,22 +35,3 @@ class PostEditView():
 
 class PostDeleteView():
     pass
-
-
-class UserListView():
-    pass
-
-
-class UserCreateView():
-    pass
-
-
-class UserEditView():
-    pass
-
-
-class UserDeleteView():
-    pass
-    # TODO: okno logowania
-    # TODO: POSTY: crud
-    # TODO: Uzytkownicy: crud
