@@ -1,11 +1,11 @@
 {% extends "blog/base.html" %}
 {% block content %}
+
     <div class="row">
         {% for post in post_list %}
             <div class="col-sm-6 col-md-4">
                 <div class="thumbnail">
                     <img src="{{ post.image.url }}" alt=""/>
-                    <p>{{ post.image.name }}</p>
                     <div class="caption">
                         <h3 class="h4"><a href="{% url 'post_detail' post.slug %}">{{ post.title }}</a></h3>
                         <p>

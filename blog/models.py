@@ -27,6 +27,10 @@ class Post(models.Model):
         return str(self.title)
 
 
+class Page(Post):
+    parent = models.ForeignKey('self', related_name='childrens', blank=True, null=True)
+
+
 class Author(models.Model):
     username = models.CharField(max_length=250)  # TODO: musi być unikalny
     first_name = models.CharField(max_length=250)
