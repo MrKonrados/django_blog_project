@@ -1,6 +1,8 @@
 from django.contrib import admin
-from .models import Post, Author, Page
+from django.contrib.flatpages.admin import FlatPageAdmin
+from django.contrib.flatpages.models import FlatPage
 
+from .models import Post, Author
 
 @admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):
@@ -12,6 +14,9 @@ class PostAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(Page)
-class PageAdmin(admin.ModelAdmin):
+class FlatPageAdmin(FlatPageAdmin):
     pass
+
+
+admin.site.unregister(FlatPage)
+admin.site.register(FlatPage, FlatPageAdmin)

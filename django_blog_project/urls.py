@@ -22,6 +22,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('blog.urls')),
+    url(r'^', include('django.contrib.flatpages.urls'), name="static_pages"),
 ]
 
 if settings.DEBUG:
