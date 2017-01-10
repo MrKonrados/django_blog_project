@@ -85,10 +85,174 @@
 
 </header>
 
-
-<div class="container">
-    {% block content %}{% endblock %}
+<!-- Start Header Section -->
+<div class="page-header">
+    <div class="overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>{% block page-tile %}Blog{% endblock %}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<!-- End Header Section -->
+
+
+<!-- Start Blog Page Section -->
+<div class="container">
+    <div class="row">
+
+        <!-- Start Blog Body Section -->
+        <div class="col-md-8 blog-body">
+
+            {% block content %}{% endblock %}
+
+            <!-- Start Pagination -->
+            <nav>
+                <ul class="pagination">
+                    <li class="disabled"><a href="#" aria-label="Start">Start</a></li>
+                    <li class="disabled"><a href="#" aria-label="Previous">Prev</a></li>
+                    <li class="active"><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">Next</a></li>
+                    <li><a href="#">End</a></li>
+                </ul>
+            </nav>
+            <!-- End Pagination -->
+
+        </div>
+        <!-- End Blog Body Section -->
+
+        <!-- Start Sidebar Section -->
+        <div class="col-md-4 sidebar right-sidebar">
+
+            <!-- Start Recent Post Widget -->
+            <div class="widget widget-recent-post">
+
+                <div class="section-heading-2">
+                    <h3 class="section-title">
+                        <span>Najnowsze wpisy</span>
+                    </h3>
+                </div>
+
+                <div class="media">
+                    <div class="media-left">
+                        <a href="#">
+                            <img class="media-object" src="asset/images/recent-post/post-02.jpg" alt="...">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading"><a href="#">Nulla facilisi integer lacinia sollicitudin massa</a></h4>
+                        <ul>
+                            <li><a href="#">Super User</a></li>
+                            <li>15 October 2014</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="media">
+                    <div class="media-left">
+                        <a href="#">
+                            <img class="media-object" src="asset/images/recent-post/post-03.jpg" alt="...">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading"><a href="#">Quisque cursus metus vitae pharetra auctor sem massa</a>
+                        </h4>
+                        <ul>
+                            <li><a href="#">Super User</a></li>
+                            <li>15 October 2014</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="media">
+                    <div class="media-left">
+                        <a href="#">
+                            <img class="media-object" src="asset/images/recent-post/post-04.jpg" alt="...">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading"><a href="#">Praesent libero sed cursus ante dapibus diam</a></h4>
+                        <ul>
+                            <li><a href="#">Super User</a></li>
+                            <li>15 October 2014</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+            <!-- End Recent Post Widget -->
+
+
+            <!-- Start Blog categories widget -->
+            <div class="widget widget-categories">
+
+                <div class="section-heading-2">
+                    <h3 class="section-title">
+                        <span>Blog Categories</span>
+                    </h3>
+                </div>
+
+                <ul>
+                    <li>
+                        <i class="fa fa-angle-double-right"></i>
+                        <a href="#">Blog</a>
+                        <a href="#" class="cat-counter">(4)</a>
+                    </li>
+                    <li>
+                        <i class="fa fa-angle-double-right"></i>
+                        <a href="#">News</a>
+                        <a href="#" class="cat-counter">(0)</a>
+                    </li>
+                    <li>
+                        <i class="fa fa-angle-double-right"></i>
+                        <a href="#">Charity</a>
+                        <a href="#" class="cat-counter">(0)</a>
+                    </li>
+                    <li>
+                        <i class="fa fa-angle-double-right"></i>
+                        <a href="#">Fashion</a>
+                        <a href="#" class="cat-counter">(0)</a>
+                    </li>
+                </ul>
+
+            </div>
+            <!-- End Blog categories widget -->
+
+
+            <!-- Start Tag Cloud Widget -->
+            <div class="widget widget-tags">
+
+                <div class="section-heading-2">
+                    <h3 class="section-title">
+                        <span>Popular Tags</span>
+                    </h3>
+                </div>
+
+                <div class="tagcloud">
+                    <a href="#">Charity</a>
+                    <a href="#">Children</a>
+                    <a href="#">Education</a>
+                    <a href="#">Elderly</a>
+                    <a href="#">Humanity</a>
+                    <a href="#">Women Rights</a>
+                </div>
+
+            </div>
+            <!-- End Tag Cloud Widget -->
+
+
+        </div>
+        <!-- End Sidebar Section -->
+
+    </div>
+</div>
+<!-- End Blog Page Section -->
+
+
 <script src="{% static 'blog/js/jquery-2.1.3.min.js' %}"></script>
 <script src="{% static 'blog/js/jquery-migrate-1.2.1.min.js' %}"></script>
 <script src="{% static 'blog/bootstrap/js/bootstrap.min.js' %}"></script>

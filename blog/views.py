@@ -11,7 +11,7 @@ class PostListView(ListView):
 
 
 class PostDetailView(DetailView):
-    pass
+    model = Post
 
 
 class AuthorPostList(ListView):
