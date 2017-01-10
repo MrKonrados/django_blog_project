@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
@@ -11,7 +11,7 @@ class PostListView(ListView):
 
 
 class PostDetailView(DetailView):
-    model = Post
+    pass
 
 
 class AuthorPostList(ListView):
@@ -35,3 +35,7 @@ class PostEditView():
 
 class PostDeleteView():
     pass
+
+
+def show_genres(request):
+    return render(request, "blog/navbar.html", {'pages': Page.objects.all()})
