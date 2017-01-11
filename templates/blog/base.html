@@ -109,18 +109,50 @@
 
             {% block content %}{% endblock %}
 
-            <!-- Start Pagination -->
-            <nav>
-                <ul class="pagination">
-                    <li class="disabled"><a href="#" aria-label="Start">Start</a></li>
-                    <li class="disabled"><a href="#" aria-label="Previous">Prev</a></li>
-                    <li class="active"><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">Next</a></li>
-                    <li><a href="#">End</a></li>
-                </ul>
-            </nav>
-            <!-- End Pagination -->
+            {% if is_paginated %}
+                <!-- Start Pagination -->
+                <nav>
+                    <ul class="pagination">
+                        {% if page_obj.has_previous %}
+                            <li><a href="?page=1" aria-label="Start">Początek</a></li>
+                        {% else %}
+                            <li class="disabled"><a href="#" aria-label="Start">Początek</a></li>
+                        {% endif %}
+                        {% if page_obj.has_previous %}
+                            <li><a href="?page={{ page_obj.previous_page_number }}" aria-label="Previous"><span
+                                    class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></a></li>
+                        {% else %}
+                            <li class="disabled"><a href="#" aria-label="Previous"><span
+                                    class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></a></li>
+                        {% endif %}
+
+                        {% for i in page_obj.paginator.page_range %}
+                            {% if page_obj.number == i %}
+                                <li class="active"><a href="#">{{ i }}</a></li>
+                            {% else %}
+                                <li><a href="?page={{ i }}">{{ i }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if page_obj.has_next %}
+                            <li><a href="?page={{ page_obj.next_page_number }}"><span
+                                    class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></li>
+                        {% else %}
+                            <li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-right"
+                                                                   aria-hidden="true"></span></a></li>
+                        {% endif %}
+
+                        {% if page_obj.has_next %}
+                            <li><a href="?page={{ page_obj.paginator.num_pages }}">Koniec</a></li>
+                        {% else %}
+                            <li class="disabled"><a href="#">Koniec</a></li>
+
+                        {% endif %}
+                    </ul>
+                </nav>
+                <!-- End Pagination -->
+            {% endif %}
+
 
         </div>
         <!-- End Blog Body Section -->

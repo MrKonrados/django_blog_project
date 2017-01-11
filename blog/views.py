@@ -8,7 +8,7 @@ from .models import Post, Author
 
 class PostListView(ListView):
     queryset = Post.objects.order_by('-modified')
-
+    paginate_by = 2
 
 class PostDetailView(DetailView):
     model = Post
@@ -35,7 +35,3 @@ class PostEditView():
 
 class PostDeleteView():
     pass
-
-
-def show_genres(request):
-    return render(request, "blog/navbar.html", {'pages': Page.objects.all()})
