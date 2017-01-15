@@ -11,9 +11,13 @@
         <div class="post-meta">
             <ul class=" pull-left">
                 <li><i class="fa fa-clock-o"></i>{{ post.modified }}</li>
-                <li><i class="fa fa-user"></i><a href="#">{{ post.author }}</a></li>
+                <li><i class="fa fa-user"></i><a
+                        href="{% url 'posts_by_author' post.author.username %}">{{ post.author }}</a></li>
                 <li><i class="fa fa-file"></i><a href="#">Blog</a></li>
-                <li><i class="fa fa-tags"></i><a href="#">Women Rights</a></li>
+                <li><i class="fa fa-tags"></i>
+                    {% for tag in post.tags.all %}
+                        <a href="{% url 'posts_by_tag' tag %}">{{ tag }}</a>
+                    {% endfor %}</li>
                 <li><i class="fa fa-comments"></i><a href="#">4 Comments</a></li>
             </ul>
             <ul class="pull-right">
@@ -45,19 +49,18 @@
 
     <!-- Start Blog Author Section -->
     <div class="blog-author">
-        <h3>About The Author</h3>
+        <h3>O autorze</h3>
         <div class="media">
             <div class="media-left">
-                <a href="#">
-                    <img class="media-object" src="asset/images/user.png" alt="...">
+                <a href="{% url 'posts_by_author' post.author.username %}">
+                    <img class="media-object" src="{{ post.author.avatar.url }}" alt="...">
                 </a>
             </div>
             <div class="media-body">
-                <h4 class="media-heading"><a href="#">Super User</a></h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                    aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur.</p>
+                <h4 class="media-heading"><a
+                        href="{% url 'posts_by_author' post.author.username %}">{{ post.author }}</a></h4>
+
+                <p>{{ post.author.about }}</p>
             </div>
         </div>
     </div>
@@ -65,69 +68,48 @@
 
     <!-- Start Comments Section -->
     <div id="comments">
-        <h2 class="comments-title">4 comments</h2>
-        <ol class="comments-list">
-            <li>
-                <div class="comment-box clearfix">
-                    <div class="avatar"><img alt="" src="asset/images/user-2.png"></div>
-                    <div class="comment-content">
-                        <div class="comment-meta">
-                            <span class="comment-by">fghfghjfghj</span>
-                            <span class="reply-link pull-right"><a href="#">Comment Link</a></span>
-                        </div>
-                        <span class="comment-date">Sunday, 15 February 2015 at 20:39</span>
-                        <p>Dette er en besked</p>
-                    </div>
-                </div>
-
-                <ul>
+        {% load pluralize_pl %}
+        <h2 class="comments-title">{{ post.comments.count }} {{ post.comments.count|pluralize_pl:"komentarz,komentarzy,komentarze" }}</h2>
+        {% if post.comments.all %}
+            <ol class="comments-list">
+                {% for comment in post.comments.all %}
                     <li>
                         <div class="comment-box clearfix">
-                            <div class="avatar"><img alt="" src="asset/images/user-2.png"></div>
+                            <div class="avatar"><img alt="" src="images/user-2.png"></div>
                             <div class="comment-content">
                                 <div class="comment-meta">
-                                    <span class="comment-by">sdfaasdfb</span>
+                                    <span class="comment-by">{{ comment.name }}</span>
                                     <span class="reply-link pull-right"><a href="#">Comment Link</a></span>
                                 </div>
-                                <span class="comment-date">Sunday, 15 February 2015 20:39</span>
-                                <p>sdfadasdfawefasdf a</p>
+                                <span class="comment-date">{{ comment.created }}</span>
+                                <p>{{ comment.content }}</p>
                             </div>
                         </div>
+                        {% if comment.replies.all %}
+                            <ul>
+                                {% for reply in comment.replies.all %}
+                                    <li>
+                                        <div class="comment-box clearfix">
+                                            <div class="avatar"><img alt="" src="asset/images/user-2.png"></div>
+                                            <div class="comment-content">
+                                                <div class="comment-meta">
+                                                    <span class="comment-by">{{ reply.name }}</span>
+                                                    <span class="reply-link pull-right"><a
+                                                            href="#">Comment Link</a></span>
+                                                </div>
+                                                <span class="comment-date">{{ reply.created }}</span>
+                                                <p>{{ reply.content }}</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
                     </li>
-                </ul>
-            </li>
+                {% endfor %}
 
-            <li>
-                <div class="comment-box clearfix">
-                    <div class="avatar"><img alt="" src="asset/images/user-2.png"></div>
-                    <div class="comment-content">
-                        <div class="comment-meta">
-                            <span class="comment-by">sa</span>
-                            <span class="reply-link pull-right"><a href="#">Comment Link</a></span>
-                        </div>
-                        <span class="comment-date">Tuesday, 03 February 2015 06:41</span>
-                        <p>daaass</p>
-                    </div>
-                </div>
-
-                <ul>
-                    <li>
-                        <div class="comment-box clearfix">
-                            <div class="avatar"><img alt="" src="asset/images/user-2.png"></div>
-                            <div class="comment-content">
-                                <div class="comment-meta">
-                                    <span class="comment-by">xc zc</span>
-                                    <span class="reply-link pull-right"><a href="#">Comment Link</a></span>
-                                </div>
-                                <span class="comment-date">Wednesday, 10 December 2014 11:42</span>
-                                <p>fsfsfs</p>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </li>
-
-        </ol>
+            </ol>
+        {% endif %}
 
         <!-- Start Respond Form -->
         <div id="respond">

@@ -1,6 +1,21 @@
-{% extends "blog/base.html" %}
-{% block navbar %}
+<div class="container">
+    <div class="navbar-header">
+        <!-- Stat Toggle Nav Link For Mobiles -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <i class="fa fa-bars"></i>
+        </button>
+        <!-- End Toggle Nav Link For Mobiles -->
+        <a class="navbar-brand" href="{% url 'post_list' %}">Nazwa Bloga</a>
+    </div>
+    <div class="navbar-collapse collapse">
 
-{% endblock navbar %}
-
-
+        <!-- Start Navigation List -->
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/">Strona główna</a></li>
+            {% for page in flatpages %}
+                <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+            {% endfor %}
+        </ul>
+        <!-- End Navigation List -->
+    </div>
+</div>

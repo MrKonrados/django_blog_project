@@ -133,7 +133,7 @@ h1, h2, h3, h4, h5, h6 {
 /* End Section Title */
 
 .page-header {
-    background: url(../images/banner.jpg) no-repeat;
+    background: url(../images/background.jpg) fixed bottom;
     padding: 50px 0;
     margin-top: 80px;
 }

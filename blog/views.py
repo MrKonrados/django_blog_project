@@ -5,22 +5,24 @@ from django.views.generic.edit import CreateView
 
 from .models import Post, Author
 
-
 class PostListView(ListView):
-    queryset = Post.objects.order_by('-modified')
     paginate_by = 2
+
+
+    def get_queryset(self):
+        if ("user" in self.kwargs):
+            # get posts by author
+            author = get_object_or_404(Author, username=self.kwargs['user'])
+            return Post.objects.filter(author=author).order_by("-modified")
+        elif ("tag" in self.kwargs):
+            # get posts by tag
+            return Post.objects.filter(tags__name__in=[self.kwargs['tag']]).order_by("-modified")
+        else:
+            return Post.objects.order_by('-modified')
+
 
 class PostDetailView(DetailView):
     model = Post
-
-
-class AuthorPostList(ListView):
-    template_name = 'blog/post_list.html'
-    context_object_name = 'post_list'
-
-    def get_queryset(self):
-        author = get_object_or_404(Author, username=self.args[0])
-        return Post.objects.filter(author=author).order_by("-modified")
 
 
 class PostCreate(CreateView):

@@ -1,5 +1,6 @@
 {% load static %}
-{% load flatpages %}
+{#{% load flatpages %}#}
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -14,12 +15,11 @@
     <link rel="stylesheet" href="{% static 'blog/font-awesome/css/font-awesome.min.css' %}" type="text/css">
     <link rel="stylesheet" type="text/css" href="{% static 'blog/css/style.css' %}">
 
-    <script src="{% static 'blog//js/modernizrr.js' %}"></script>
+    <script src="{% static 'blog/js/modernizrr.js' %}"></script>
 </head>
 <body>
 
 <header class="clearfix">
-
     <!-- Start Top Bar -->
     <div class="container">
         <div class="row">
@@ -48,41 +48,18 @@
                             <!-- End Social Links -->
                         </div><!-- .col-md-6 -->
                     </div>
-
-
                 </div>
             </div>
-
         </div><!-- .row -->
     </div><!-- .container -->
     <!-- End Top Bar -->
 
     <!-- Start  Logo & Naviagtion  -->
     <div class="navbar navbar-default navbar-top">
-        <div class="container">
-            <div class="navbar-header">
-                <!-- Stat Toggle Nav Link For Mobiles -->
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <i class="fa fa-bars"></i>
-                </button>
-                <!-- End Toggle Nav Link For Mobiles -->
-                <a class="navbar-brand" href="index.html">Nazwa Bloga</a>
-            </div>
-            <div class="navbar-collapse collapse">
-
-                <!-- Start Navigation List -->
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/">Strona główna</a></li>
-                    {% for page in flatpages %}
-                        <li><a href="{{ page.url }}">{{ page.title }}</a></li>
-                    {% endfor %}
-                </ul>
-                <!-- End Navigation List -->
-            </div>
-        </div>
+        {% include 'blog/navbar.html' %}
     </div>
-    <!-- End Header Logo & Naviagtion -->
 
+    <!-- End Header Logo & Naviagtion -->
 </header>
 
 <!-- Start Header Section -->
@@ -103,57 +80,13 @@
 <!-- Start Blog Page Section -->
 <div class="container">
     <div class="row">
-
         <!-- Start Blog Body Section -->
         <div class="col-md-8 blog-body">
-
             {% block content %}{% endblock %}
 
             {% if is_paginated %}
-                <!-- Start Pagination -->
-                <nav>
-                    <ul class="pagination">
-                        {% if page_obj.has_previous %}
-                            <li><a href="?page=1" aria-label="Start">Początek</a></li>
-                        {% else %}
-                            <li class="disabled"><a href="#" aria-label="Start">Początek</a></li>
-                        {% endif %}
-                        {% if page_obj.has_previous %}
-                            <li><a href="?page={{ page_obj.previous_page_number }}" aria-label="Previous"><span
-                                    class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></a></li>
-                        {% else %}
-                            <li class="disabled"><a href="#" aria-label="Previous"><span
-                                    class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></a></li>
-                        {% endif %}
-
-                        {% for i in page_obj.paginator.page_range %}
-                            {% if page_obj.number == i %}
-                                <li class="active"><a href="#">{{ i }}</a></li>
-                            {% else %}
-                                <li><a href="?page={{ i }}">{{ i }}</a></li>
-                            {% endif %}
-                        {% endfor %}
-
-                        {% if page_obj.has_next %}
-                            <li><a href="?page={{ page_obj.next_page_number }}"><span
-                                    class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></li>
-                        {% else %}
-                            <li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-right"
-                                                                   aria-hidden="true"></span></a></li>
-                        {% endif %}
-
-                        {% if page_obj.has_next %}
-                            <li><a href="?page={{ page_obj.paginator.num_pages }}">Koniec</a></li>
-                        {% else %}
-                            <li class="disabled"><a href="#">Koniec</a></li>
-
-                        {% endif %}
-                    </ul>
-                </nav>
-                <!-- End Pagination -->
+                {% include 'blog/pagination.html' %}
             {% endif %}
-
-
         </div>
         <!-- End Blog Body Section -->
 
@@ -254,28 +187,11 @@
             </div>
             <!-- End Blog categories widget -->
 
-
             <!-- Start Tag Cloud Widget -->
             <div class="widget widget-tags">
-
-                <div class="section-heading-2">
-                    <h3 class="section-title">
-                        <span>Popular Tags</span>
-                    </h3>
-                </div>
-
-                <div class="tagcloud">
-                    <a href="#">Charity</a>
-                    <a href="#">Children</a>
-                    <a href="#">Education</a>
-                    <a href="#">Elderly</a>
-                    <a href="#">Humanity</a>
-                    <a href="#">Women Rights</a>
-                </div>
-
+                {% include 'blog/tagcloud.html' %}
             </div>
             <!-- End Tag Cloud Widget -->
-
 
         </div>
         <!-- End Sidebar Section -->
@@ -289,6 +205,20 @@
 <script src="{% static 'blog/js/jquery-migrate-1.2.1.min.js' %}"></script>
 <script src="{% static 'blog/bootstrap/js/bootstrap.min.js' %}"></script>
 <script src="{% static 'blog/js/script.js' %}"></script>
+
+
+<img class="unicorn" style="position: fixed; bottom:0; left: 0; width: 120px; height: auto;"
+     src="{% static 'blog/images/animagicalunicorn.gif' %}"/>
+<script>
+    // Using multiple unit types within one animation.
+
+    $(".unicorn").animate({
+        left: "1700px",
+    }, 7000, "linear", function () {
+        $(this).fadeOut();
+    });
+</script>
+
 </body>
 
 </html>

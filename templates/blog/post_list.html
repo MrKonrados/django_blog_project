@@ -12,7 +12,11 @@
                 <li><i class="fa fa-user"></i><a
                         href="{% url 'posts_by_author' post.author.username %}">{{ post.author }}</a></li>
                 <li><i class="fa fa-file"></i><a href="#">Blog</a></li>
-                <li><i class="fa fa-tags"></i><a href="#">Elderly</a> <a href="#">Education</a></li>
+                <li><i class="fa fa-tags"></i>
+                    {% for tag in post.tags.all %}
+                        <a href="{% url 'posts_by_tag' tag %}">{{ tag }}</a>
+                    {% endfor %}
+                </li>
                 <li><i class="fa fa-comments"></i><a href="#">1 Comments</a></li>
             </ul>
 
@@ -23,6 +27,4 @@
     {% empty %}
         <div class="col-md-12"><h3>Brak wpisów</h3></div>
     {% endfor %}
-{% endblock %}
-
-
+{% endblock content %}

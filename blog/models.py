@@ -4,12 +4,17 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.core.urlresolvers import reverse
 
+from taggit.managers import TaggableManager
+from mptt.models import MPTTModel, TreeForeignKey
+
+
 class Post(models.Model):
     author = models.ForeignKey('Author', on_delete=models.CASCADE)
     title = models.CharField(max_length=250)
     slug = models.SlugField(unique=True, blank=True, max_length=250)
     created = models.DateTimeField(auto_now=False, auto_now_add=True)
     modified = models.DateTimeField(auto_now=True, auto_now_add=False)
+    tags = TaggableManager(blank=True)
     image = models.ImageField(upload_to="images/%Y/%m/", blank=True, null=True)
     content = models.TextField()
 
@@ -27,9 +32,28 @@ class Post(models.Model):
 
 
 class Author(models.Model):
-    username = models.CharField(max_length=250)  # TODO: musi być unikalny
+    username = models.CharField(max_length=250)
     first_name = models.CharField(max_length=250)
     last_name = models.CharField(max_length=250)
+    about = models.TextField(blank=True)
+    avatar = models.ImageField(upload_to='images/user/', blank=True, null=True, default='images/default-avatar.jpg')
 
     def __str__(self):
         return str(self.first_name + " " + self.last_name)
+
+
+class Comment(MPTTModel):
+    post = models.ForeignKey("Post", on_delete=models.CASCADE, null=True, related_name='comments')
+    parent = models.ForeignKey('self', null=True, blank=True, related_name='replies', db_index=True)
+
+    name = models.CharField(max_length=250)
+    email = models.EmailField(max_length=250, blank=True, null=True)
+    website = models.CharField(max_length=250, blank=True, null=True)
+    created = models.DateTimeField(auto_now=False, auto_now_add=True)
+    content = models.TextField()
+
+    def __str__(self):
+        return str("{}: {}...".format(self.name, self.content[:25]))
+
+    class MPTTMeta:
+        order_insertion_by = ['created']

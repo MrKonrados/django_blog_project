@@ -1,0 +1,52 @@
+<nav>
+    <ul class="pagination">
+        {% if page_obj.has_previous %}
+            <li><a href="?page=1" aria-label="Początek">Początek</a></li>
+        {% else %}
+            <li class="disabled"><a href="javascript:;" aria-label="Początek" aria-hidden="true">Początek</a>
+            </li>
+        {% endif %}
+        {% if page_obj.has_previous %}
+            <li>
+                <a href="?page={{ page_obj.previous_page_number }}" aria-label="Poprzedni">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+            </li>
+        {% else %}
+            <li class="disabled">
+                <a href="javascript:;" aria-label="Poprzedni" aria-hidden="true">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+            </li>
+        {% endif %}
+
+        {% for i in page_obj.paginator.page_range %}
+            {% if page_obj.number == i %}
+                <li class="active"><a href="javascript:;">{{ i }}</a></li>
+            {% else %}
+                <li><a href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <li>
+                <a href="?page={{ page_obj.next_page_number }}" aria-label="Następny">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </a>
+            </li>
+        {% else %}
+            <li class="disabled">
+                <a href="javascript:;" aria-label="Następny" aria-hidden="true">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                </a>
+            </li>
+        {% endif %}
+
+        {% if page_obj.has_next %}
+            <li><a href="?page={{ page_obj.paginator.num_pages }}">Koniec</a></li>
+        {% else %}
+            <li class="disabled"><a href="javascript:;" aria-hidden="true">Koniec</a></li>
+
+        {% endif %}
+    </ul>
+</nav>
