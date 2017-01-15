@@ -1,6 +1,8 @@
 from django.contrib import admin
-from django.contrib.flatpages.admin import FlatPageAdmin
-from django.contrib.flatpages.models import FlatPage
+# from django.contrib.flatpages.admin import FlatPageAdmin
+# from django.contrib.flatpages.models import FlatPage
+
+from mptt.admin import MPTTModelAdmin
 
 from .models import *
 
@@ -9,20 +11,18 @@ from .models import *
 class AuthorAdmin(admin.ModelAdmin):
     pass
 
-
-@admin.register(Comment)
-class CommentAdmin(admin.ModelAdmin):
-    pass
-
-
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     pass
 
 
-class FlatPageAdmin(FlatPageAdmin):
-    pass
+@admin.register(Comment)
+class CommentAdmin(MPTTModelAdmin):
+    mptt_level_indent = 20
 
-
-admin.site.unregister(FlatPage)
-admin.site.register(FlatPage, FlatPageAdmin)
+# class FlatPageAdmin(FlatPageAdmin):
+#     pass
+#
+#
+# admin.site.unregister(FlatPage)
+# admin.site.register(FlatPage, FlatPageAdmin)

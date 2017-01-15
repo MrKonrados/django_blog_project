@@ -72,6 +72,20 @@
         <h2 class="comments-title">{{ post.comments.count }} {{ post.comments.count|pluralize_pl:"komentarz,komentarzy,komentarze" }}</h2>
         {% if post.comments.all %}
             <ol class="comments-list">
+                {% load mptt_tags %}
+                {#                TODO: commenty #}
+                {% with post.comment_set.all as comments %}
+                    {% recursetree comments %}
+                        <li>
+                            {{ node.name }}
+                            {% if not node.is_leaf_node %}
+                                <ul class="children">
+                                    {{ children }}
+                                </ul>
+                            {% endif %}
+                        </li>
+                    {% endrecursetree %}
+                {% endwith %}
                 {% for comment in post.comments.all %}
                     <li>
                         <div class="comment-box clearfix">
