@@ -44,7 +44,7 @@ class Author(models.Model):
 
 class Comment(MPTTModel):
     post = models.ForeignKey("Post", on_delete=models.CASCADE, null=True, related_name='comments')
-    parent = models.ForeignKey('self', null=True, blank=True, related_name='replies', db_index=True)
+    parent = TreeForeignKey('self', null=True, blank=True, related_name='replies', db_index=True)
 
     name = models.CharField(max_length=250)
     email = models.EmailField(max_length=250, blank=True, null=True)
@@ -53,7 +53,4 @@ class Comment(MPTTModel):
     content = models.TextField()
 
     def __str__(self):
-        return str("{}: {}...".format(self.name, self.content[:25]))
-
-    class MPTTMeta:
-        order_insertion_by = ['created']
+        return str("{}: {}...".format(self.name, self.content[:50]))

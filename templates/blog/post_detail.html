@@ -1,4 +1,7 @@
 {% extends "blog/base.html" %}
+{% load pluralize_pl %}
+{% load static %}
+
 {% block content %}
 
     <!-- Start Blog post -->
@@ -18,7 +21,9 @@
                     {% for tag in post.tags.all %}
                         <a href="{% url 'posts_by_tag' tag %}">{{ tag }}</a>
                     {% endfor %}</li>
-                <li><i class="fa fa-comments"></i><a href="#">4 Comments</a></li>
+                <li>
+                    <i class="fa fa-comments"></i>{{ post.comments.count }} {{ post.comments.count|pluralize_pl:"komentarz,komentarzy,komentarze" }}
+                </li>
             </ul>
             <ul class="pull-right">
                 <li>font-size<i class="fa fa-minus-circle"></i><i class="fa fa-plus-circle"></i></li>
@@ -46,7 +51,6 @@
     </div>
     <!-- End Blog Post -->
 
-
     <!-- Start Blog Author Section -->
     <div class="blog-author">
         <h3>O autorze</h3>
@@ -59,7 +63,6 @@
             <div class="media-body">
                 <h4 class="media-heading"><a
                         href="{% url 'posts_by_author' post.author.username %}">{{ post.author }}</a></h4>
-
                 <p>{{ post.author.about }}</p>
             </div>
         </div>
@@ -68,92 +71,36 @@
 
     <!-- Start Comments Section -->
     <div id="comments">
-        {% load pluralize_pl %}
+
         <h2 class="comments-title">{{ post.comments.count }} {{ post.comments.count|pluralize_pl:"komentarz,komentarzy,komentarze" }}</h2>
+
         {% if post.comments.all %}
             <ol class="comments-list">
                 {% load mptt_tags %}
-                {#                TODO: commenty #}
-                {% with post.comment_set.all as comments %}
+                {% with post.comments.all as comments %}
                     {% recursetree comments %}
                         <li>
-                            {{ node.name }}
-                            {% if not node.is_leaf_node %}
-                                <ul class="children">
-                                    {{ children }}
-                                </ul>
-                            {% endif %}
+                        <div class="comment-box clearfix">
+                            <div class="avatar"><img alt="" src="{% static 'blog/images/user-2.png' %}"></div>
+                            <div class="comment-content">
+                                <div class="comment-meta">
+                                    <span class="comment-by">{{ node.name }}</span>
+                                    <span class="reply-link pull-right"><a href="#">Comment Link</a></span>
+                                </div>
+                                <span class="comment-date">{{ node.created }}</span>
+                                <p>{{ node.content }}</p>
+                            </div>
+                        </div>
+                            <ul>
+                                {{ children }}
+                            </ul>
                         </li>
                     {% endrecursetree %}
                 {% endwith %}
-                {% for comment in post.comments.all %}
-                    <li>
-                        <div class="comment-box clearfix">
-                            <div class="avatar"><img alt="" src="images/user-2.png"></div>
-                            <div class="comment-content">
-                                <div class="comment-meta">
-                                    <span class="comment-by">{{ comment.name }}</span>
-                                    <span class="reply-link pull-right"><a href="#">Comment Link</a></span>
-                                </div>
-                                <span class="comment-date">{{ comment.created }}</span>
-                                <p>{{ comment.content }}</p>
-                            </div>
-                        </div>
-                        {% if comment.replies.all %}
-                            <ul>
-                                {% for reply in comment.replies.all %}
-                                    <li>
-                                        <div class="comment-box clearfix">
-                                            <div class="avatar"><img alt="" src="asset/images/user-2.png"></div>
-                                            <div class="comment-content">
-                                                <div class="comment-meta">
-                                                    <span class="comment-by">{{ reply.name }}</span>
-                                                    <span class="reply-link pull-right"><a
-                                                            href="#">Comment Link</a></span>
-                                                </div>
-                                                <span class="comment-date">{{ reply.created }}</span>
-                                                <p>{{ reply.content }}</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        {% endif %}
-                    </li>
-                {% endfor %}
-
             </ol>
         {% endif %}
 
-        <!-- Start Respond Form -->
-        <div id="respond">
-            <h2 class="respond-title">Leave a comment</h2>
-            <span class="form-caution">Make sure you enter the (*) required information where indicated. HTML code is not allowed.</span>
-            <form action="#">
-                <div class="row">
-                    <div class="col-md-4">
-                        <label for="author">Name<span class="required">*</span></label>
-                        <input id="author" name="author" type="text" size="30" aria-required="true">
-                    </div>
-                    <div class="col-md-4">
-                        <label for="email">Email<span class="required">*</span></label>
-                        <input id="email" name="author" type="text" size="30" aria-required="true">
-                    </div>
-                    <div class="col-md-4">
-                        <label for="url">Website<span class="required">*</span></label>
-                        <input id="url" name="url" type="text" size="30" aria-required="true">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <label for="comment">Add Your Comment</label>
-                        <textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea>
-                        <input name="submit" type="submit" id="submit" class="btn btn-primary" value="Submit Comment">
-                    </div>
-                </div>
-            </form>
-        </div>
-        <!-- End Respond Form -->
+        {% include 'blog/comment_form.html' %}
 
     </div>
     <!-- End Comments Section -->

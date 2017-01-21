@@ -4,7 +4,7 @@ from .views import *
 
 urlpatterns = [
     url(r'^$', PostListView.as_view(), name="post_list"),
-    url(r'^(?P<slug>[-\w]+)/$', PostDetailView.as_view(), name="post_detail"),
+    url(r'^(?P<slug>[-\w]+)/$', PostDetail.as_view(), name="post_detail"),
     url(r'^(?P<user>[\w-]+)/posts/$', PostListView.as_view(), name="posts_by_author"),
     url(r'^tag/(?P<tag>[\w-]+)/$', PostListView.as_view(), name="posts_by_tag"),
 
