@@ -52,5 +52,8 @@ class Comment(MPTTModel):
     created = models.DateTimeField(auto_now=False, auto_now_add=True)
     content = models.TextField()
 
+    def save(self, *args, **kwargs):
+        super(Comment, self).save(*args, **kwargs)
+
     def __str__(self):
         return str("{}: {}...".format(self.name, self.content[:50]))

@@ -46,6 +46,10 @@ class PostCommentView(SingleObjectMixin, FormView):
     def get_success_url(self):
         return reverse('post_detail', kwargs={'slug': self.object.slug})
 
+    def form_valid(self, form):
+        form.save()
+        return super(PostCommentView, self).form_valid(form)
+
 
 class PostDetail(View):
     def get(self, request, *args, **kwargs):
