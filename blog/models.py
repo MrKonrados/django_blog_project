@@ -46,11 +46,11 @@ class Comment(MPTTModel):
     post = models.ForeignKey("Post", on_delete=models.CASCADE, null=True, related_name='comments')
     parent = TreeForeignKey('self', null=True, blank=True, related_name='replies', db_index=True)
 
-    name = models.CharField(max_length=250)
-    email = models.EmailField(max_length=250, blank=True, null=True)
-    website = models.CharField(max_length=250, blank=True, null=True)
+    name = models.CharField("Imię lub nick", max_length=250)
+    email = models.EmailField("Adres e-mail", max_length=250, blank=True, null=True)
+    website = models.CharField("Strona WWW", max_length=250, blank=True, null=True)
     created = models.DateTimeField(auto_now=False, auto_now_add=True)
-    content = models.TextField()
+    content = models.TextField("Treść")
 
     def save(self, *args, **kwargs):
         super(Comment, self).save(*args, **kwargs)

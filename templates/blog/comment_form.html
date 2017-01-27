@@ -1,11 +1,40 @@
 <div id="respond">
-    <h2 class="respond-title">Leave a comment</h2>
-    <span class="form-caution">Make sure you enter the (*) required information where indicated. HTML code is not allowed.</span>
-    <form action="{% url 'post_detail' post.slug %}" method="POST">
+    <h2 class="respond-title">Napisz komentarz</h2>
+    <span class="form-caution">Pola oznaczone (*) są obowiązkowe do wypełnienia.</span>
+    <form action="" method="POST">
         {{ form.non_field_errors }}
         {% csrf_token %}
-        {{ form.as_ul }}
-        <button type="submit">save</button>
+
+
+        <div class="row">
+            <div class="col-md-4 form-group">
+                <div class=" ">
+
+                    {{ form.name.label_tag }}
+                    {{ form.name }}
+                </div>
+            </div>
+            <div class="col-md-4 form-group">
+                {{ form.email.label_tag }}
+                {{ form.email }}
+            </div>
+            <div class="col-md-4 form-group">
+                {{ form.website.label_tag }}
+                {{ form.website }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 form-group">
+                {{ form.content.label_tag }}
+                {{ form.content }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <input name="submit" type="submit" id="submit" class="btn btn-primary" value="Opublikuj">
+            </div>
+        </div>
+
         {#        <div class="row">#}
         {#            <div class="col-md-4">#}
         {#                <label for="{{ form.name.id_for_label }}">Imię<span class="required">*</span></label>#}
@@ -23,8 +52,8 @@
         {#        <div class="row">#}
         {#            <div class="col-md-12">#}
         {#                <label for="{{ form.text.id_for_label }}">Komentarz</label>#}
-        {#                {{ form.text }}#}
-        {#        <input name="submit" type="submit" id="submit" class="btn btn-primary" value="Submit Comment">#}
+        {#                {{ form.content }}#}
+        {#                <input name="submit" type="submit" id="submit" class="btn btn-primary" value="Submit Comment">#}
         {#            </div>#}
         {#        </div>#}
     </form>

@@ -9,9 +9,9 @@ from django.urls import reverse
 from .models import Post, Author, Comment
 from .forms import CommentForm
 
+
 class PostListView(ListView):
     paginate_by = 2
-
 
     def get_queryset(self):
         if ("user" in self.kwargs):
@@ -47,6 +47,9 @@ class PostCommentView(SingleObjectMixin, FormView):
         return reverse('post_detail', kwargs={'slug': self.object.slug})
 
     def form_valid(self, form):
+        comment = form.save(commit=False)
+        post = get_object_or_404(Post, pk=self.object.pk)
+        comment.post = post
         form.save()
         return super(PostCommentView, self).form_valid(form)
 
@@ -59,6 +62,7 @@ class PostDetail(View):
     def post(self, request, *args, **kwargs):
         view = PostCommentView.as_view()
         return view(request, *args, **kwargs)
+
 
 class PostCreate(CreateView):
     template_name = "blog/post_form.html"
