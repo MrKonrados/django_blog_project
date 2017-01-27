@@ -80,17 +80,20 @@
                 {% with post.comments.all as comments %}
                     {% recursetree comments %}
                         <li>
-                        <div class="comment-box clearfix">
-                            <div class="avatar"><img alt="" src="{% static 'blog/images/user-2.png' %}"></div>
-                            <div class="comment-content">
-                                <div class="comment-meta">
-                                    <span class="comment-by">{{ node.name }}</span>
-                                    <span class="reply-link pull-right"><a href="#">Comment Link</a></span>
+                            <div class="comment-box clearfix">
+                                <div class="avatar"><img alt="" src="{% static 'blog/images/user-2.png' %}"></div>
+                                <div class="comment-content">
+                                    <div class="comment-meta">
+                                        <span class="comment-by">{{ node.name }}</span>
+                                        <span class="reply-link pull-right">
+                                            <a href="javascript:;" data-parent_id="{{ node.id }}"
+                                               data-toggle="modal" data-target="#comment-reply">Odpowiedz</a>
+                                        </span>
+                                    </div>
+                                    <span class="comment-date">{{ node.created }}</span>
+                                    <p>{{ node.content }}</p>
                                 </div>
-                                <span class="comment-date">{{ node.created }}</span>
-                                <p>{{ node.content }}</p>
                             </div>
-                        </div>
                             <ul>
                                 {{ children }}
                             </ul>
@@ -99,9 +102,39 @@
                 {% endwith %}
             </ol>
         {% endif %}
+        <div id="respond">
+            <h2 class="respond-title">Napisz komentarz</h2>
+            <span class="form-caution">Pola oznaczone (*) są obowiązkowe do wypełnienia.</span>
+            <form action="" method="POST">{% csrf_token %}
+                {% include 'blog/comment_form.html' %}
+                <div class="row">
+                    <div class="col-md-12">
+                        <input name="submit" type="submit" id="submit" class="btn btn-primary" value="Opublikuj">
+                    </div>
+                </div>
+            </form>
+        </div>
 
-        {% include 'blog/comment_form.html' %}
-
+    </div>
+    <div class="modal fade" id="comment-reply" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Zamknij"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Odpowiedz na komentarz</h4>
+                </div>
+                <form action="" method="POST">{% csrf_token %}
+                    <div class="modal-body">
+                        {% include 'blog/comment_form.html' %}
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                            <button name="submit" type="submit" id="reply" class="btn btn-primary">Odpowiedz</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
     <!-- End Comments Section -->
 {% endblock %}

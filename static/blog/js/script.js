@@ -2,22 +2,22 @@
 
     $(document).ready(function ($) {
 
-        jQuery('#map').CustomMap();
+        // jQuery('#map').CustomMap();
 
 
         ////------- Testimonials Carousel
 
-        var testimonial = $(".testimonial-wrapper");
-        testimonial.owlCarousel({
-            pagination: false,
-            navigation: true,
-            slideSpeed: 1000,
-            stopOnHover: true,
-            autoPlay: 3000,
-            singleItem: true,
-            transitionStyle: "fade",
-            navigationText: ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>']
-        });
+        // var testimonial = $(".testimonial-wrapper");
+        // testimonial.owlCarousel({
+        //     pagination: false,
+        //     navigation: true,
+        //     slideSpeed: 1000,
+        //     stopOnHover: true,
+        //     autoPlay: 3000,
+        //     singleItem: true,
+        //     transitionStyle: "fade",
+        //     navigationText: ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>']
+        // });
 
         /*----------------------------------------------------*/
         /*	Nav Menu & Search
@@ -31,31 +31,35 @@
         /*---------------------------------------------------*/
         /* Progress Bar
          /*---------------------------------------------------*/
-        $(document).ready(function ($) {
-            "use strict";
-
-
-            $('.skill-shortcode').appear(function () {
-                $('.progress').each(function () {
-                    $('.progress-bar').css('width', function () {
-                        return ($(this).attr('data-percentage') + '%')
-                    });
-                });
-            }, {accY: -100});
-
-
-        });
+        // $(document).ready(function ($) {
+        //     "use strict";
+        //
+        //
+        //     $('.skill-shortcode').appear(function () {
+        //         $('.progress').each(function () {
+        //             $('.progress-bar').css('width', function () {
+        //                 return ($(this).attr('data-percentage') + '%')
+        //             });
+        //         });
+        //     }, {accY: -100});
+        //
+        //
+        // });
 
 
         /*--------------------------------------------------*/
         /* Counter*/
         /*--------------------------------------------------*/
-        $('.timer').countTo();
+        // $('.timer').countTo();
+        //
+        // $('.counter-item').appear(function () {
+        //     $('.timer').countTo();
+        // }, {accY: -100});
 
-        $('.counter-item').appear(function () {
-            $('.timer').countTo();
-        }, {accY: -100});
-
+        $('.reply-link > a').click(function () {
+            var parent_id = $(this).data('parent_id');
+            $('#comment-reply #id_parent').val(parent_id);
+        });
 
     });
 
