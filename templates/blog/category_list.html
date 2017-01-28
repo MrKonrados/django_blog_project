@@ -1,0 +1,10 @@
+<ul>
+    {% for category in categories %}
+        <li>
+            <i class="fa fa-angle-double-right"></i>
+            <a href="{% url 'posts_by_category' category.slug %}">{{ category.name }}</a>
+            <span class="cat-counter">({{ category.type.all.count }})</span>
+        </li>
+
+    {% endfor %}
+</ul>

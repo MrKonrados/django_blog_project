@@ -1936,7 +1936,7 @@ h1.post-title a {
     padding-right: 15px;
 }
 
-.widget-categories li a.cat-counter {
+.widget-categories li .cat-counter {
     margin-left: 20px;
     font-size: 10px;
     background: #ff432e;

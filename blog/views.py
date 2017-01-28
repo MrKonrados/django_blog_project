@@ -6,7 +6,7 @@ from django.views.generic import FormView
 from django.views import View
 from django.urls import reverse
 
-from .models import Post, Author, Comment
+from .models import Post, Author, Category
 from .forms import CommentForm
 
 
@@ -21,6 +21,9 @@ class PostListView(ListView):
         elif ("tag" in self.kwargs):
             # get posts by tag
             return Post.objects.filter(tags__name__in=[self.kwargs['tag']]).order_by("-modified")
+        elif ("category" in self.kwargs):
+            category = get_object_or_404(Category, slug=self.kwargs['category'])
+            return Post.objects.filter(category=category).order_by("-modified")
         else:
             return Post.objects.order_by('-modified')
 
@@ -31,6 +34,7 @@ class PostDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(PostDetailView, self).get_context_data(**kwargs)
         context['form'] = CommentForm()
+        context['categories'] = Category.objects.all()
         return context
 
 

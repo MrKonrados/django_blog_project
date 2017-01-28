@@ -20,6 +20,11 @@ class PostAdmin(admin.ModelAdmin):
 class CommentAdmin(MPTTModelAdmin):
     mptt_level_indent = 20
 
+
+@admin.register(Category)
+class CommentAdmin(admin.ModelAdmin):
+    pass
+
 # class FlatPageAdmin(FlatPageAdmin):
 #     pass
 #

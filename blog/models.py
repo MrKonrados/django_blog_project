@@ -11,12 +11,13 @@ from mptt.models import MPTTModel, TreeForeignKey
 class Post(models.Model):
     author = models.ForeignKey('Author', on_delete=models.CASCADE)
     title = models.CharField(max_length=250)
-    slug = models.SlugField(unique=True, blank=True, max_length=250)
+    slug = models.SlugField(blank=True, max_length=250)
     created = models.DateTimeField(auto_now=False, auto_now_add=True)
     modified = models.DateTimeField(auto_now=True, auto_now_add=False)
     tags = TaggableManager(blank=True)
     image = models.ImageField(upload_to="images/%Y/%m/", blank=True, null=True)
     content = models.TextField()
+    category = models.ForeignKey('Category', on_delete=models.SET_NULL, blank=True, null=True, related_name="type")
 
     def get_absolute_url(self):
         return reverse('post_detail', kwargs={'slug': self.slug, })
@@ -30,6 +31,18 @@ class Post(models.Model):
     def __str__(self):
         return str(self.title)
 
+
+class Category(models.Model):
+    name = models.CharField(max_length=250)
+    slug = models.SlugField(blank=True, max_length=250)
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.slug = slugify(unidecode(self.name))
+        super(Category, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return str(self.name)
 
 class Author(models.Model):
     username = models.CharField(max_length=250)
