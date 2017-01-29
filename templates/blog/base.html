@@ -1,6 +1,6 @@
 {% load static %}
 {#{% load flatpages %}#}
-{% load post_categories %}
+
 
 <!DOCTYPE html>
 <html lang="pl">
@@ -60,7 +60,6 @@
         {% include 'blog/navbar.html' %}
     </div>
 
-    <!-- End Header Logo & Naviagtion -->
 </header>
 
 <!-- Start Header Section -->
@@ -89,113 +88,49 @@
                 {% include 'blog/pagination.html' %}
             {% endif %}
         </div>
-        <!-- End Blog Body Section -->
 
         <!-- Start Sidebar Section -->
         <div class="col-md-4 sidebar right-sidebar">
-
-            <!-- Start Recent Post Widget -->
-            <div class="widget widget-recent-post">
-
-                <div class="section-heading-2">
-                    <h3 class="section-title">
-                        <span>Najnowsze wpisy</span>
-                    </h3>
-                </div>
-
-                <div class="media">
-                    <div class="media-left">
-                        <a href="#">
-                            <img class="media-object" src="asset/images/recent-post/post-02.jpg" alt="...">
-                        </a>
-                    </div>
-                    <div class="media-body">
-                        <h4 class="media-heading"><a href="#">Nulla facilisi integer lacinia sollicitudin massa</a></h4>
-                        <ul>
-                            <li><a href="#">Super User</a></li>
-                            <li>15 October 2014</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="media">
-                    <div class="media-left">
-                        <a href="#">
-                            <img class="media-object" src="asset/images/recent-post/post-03.jpg" alt="...">
-                        </a>
-                    </div>
-                    <div class="media-body">
-                        <h4 class="media-heading"><a href="#">Quisque cursus metus vitae pharetra auctor sem massa</a>
-                        </h4>
-                        <ul>
-                            <li><a href="#">Super User</a></li>
-                            <li>15 October 2014</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="media">
-                    <div class="media-left">
-                        <a href="#">
-                            <img class="media-object" src="asset/images/recent-post/post-04.jpg" alt="...">
-                        </a>
-                    </div>
-                    <div class="media-body">
-                        <h4 class="media-heading"><a href="#">Praesent libero sed cursus ante dapibus diam</a></h4>
-                        <ul>
-                            <li><a href="#">Super User</a></li>
-                            <li>15 October 2014</li>
-                        </ul>
-                    </div>
-                </div>
-
-            </div>
-            <!-- End Recent Post Widget -->
-
-
-            <!-- Start Blog categories widget -->
-            <div class="widget widget-categories">
-                <div class="section-heading-2">
-                    <h3 class="section-title">
-                        <span>Kategorie wpisów</span>
-                    </h3>
-                </div>
-                {% category_list %}
-            </div>
-            <!-- End Blog categories widget -->
-
-            <!-- Start Tag Cloud Widget -->
-            <div class="widget widget-tags">
-                {% include 'blog/tagcloud.html' %}
-            </div>
-            <!-- End Tag Cloud Widget -->
-
+            {% include 'blog/sidebar.html' %}
         </div>
         <!-- End Sidebar Section -->
-
     </div>
 </div>
 <!-- End Blog Page Section -->
 
 
-<script src="{% static 'blog/js/jquery-2.1.3.min.js' %}"></script>
-<script src="{% static 'blog/js/jquery-migrate-1.2.1.min.js' %}"></script>
-<script src="{% static 'blog/bootstrap/js/bootstrap.min.js' %}"></script>
-<script src="{% static 'blog/js/script.js' %}"></script>
+<script src={% static 'blog/js/jquery-2.1.3.min.js' %}></script>
+<script src={% static 'blog/js/jquery-migrate-1.2.1.min.js' %}></script>
+<script src={% static 'blog/bootstrap/js/bootstrap.min.js' %}></script>
+
+<script src={% static "blog/js/owl.carousel.min.js" %}></script>
+<script src={% static "blog/js/jquery.appear.js" %}></script>
+<script src={% static "blog/js/jquery.fitvids.js" %}></script>
+<script src={% static "blog/js/jquery.nicescroll.min.js" %}></script>
+<script src={% static "blog/js/lightbox.min.js" %}></script>
+<script src={% static "blog/js/count-to.js" %}></script>
+<script src={% static "blog/js/styleswitcher.js" %}></script>
+
+<script src={% static "blog/js/map.js" %}></script>
+<script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+<script src={% static 'blog/js/script.js' %}></script>
 
 
-<img class="unicorn" style="position: fixed; bottom:0; left: 0; width: 120px; height: auto;"
-     src="{% static 'blog/images/animagicalunicorn.gif' %}"/>
-<script>
-    // Using multiple unit types within one animation.
-
-    $(".unicorn").animate({
-        left: "1700px",
-    }, 7000, "linear", function () {
-        $(this).fadeOut();
-    });
-</script>
-<pre>{% debug %}</pre>
+{#<img class="unicorn" style="position: fixed; bottom:0; left: 0; width: 120px; height: auto;"#}
+{#     src="{% static 'blog/images/animagicalunicorn.gif' %}"/>#}
+{#<script>#}
+{#    // Using multiple unit types within one animation.#}
+{##}
+{#    $(".unicorn").animate({#}
+{#        left: "1700px",#}
+{#    }, 7000, "linear", function () {#}
+{#        $(this).fadeOut();#}
+{#    });#}
+{##}
+{##}
+{#</script>#}
+{#<pre>{% debug %}</pre>#}
 
 </body>
 
