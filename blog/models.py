@@ -10,6 +10,8 @@ from mptt.models import MPTTModel, TreeForeignKey
 
 class Post(models.Model):
     author = models.ForeignKey('Author', on_delete=models.CASCADE)
+    category = models.ForeignKey('Category', on_delete=models.SET_NULL, blank=True, null=True, related_name="type")
+
     title = models.CharField(max_length=250)
     slug = models.SlugField(blank=True, max_length=250)
     created = models.DateTimeField(auto_now=False, auto_now_add=True)
@@ -17,7 +19,6 @@ class Post(models.Model):
     tags = TaggableManager(blank=True)
     image = models.ImageField(upload_to="images/%Y/%m/", blank=True, null=True)
     content = models.TextField()
-    category = models.ForeignKey('Category', on_delete=models.SET_NULL, blank=True, null=True, related_name="type")
 
     def get_absolute_url(self):
         return reverse('post_detail', kwargs={'slug': self.slug, })
@@ -44,6 +45,7 @@ class Category(models.Model):
     def __str__(self):
         return str(self.name)
 
+
 class Author(models.Model):
     username = models.CharField(max_length=250)
     first_name = models.CharField(max_length=250)
@@ -69,3 +71,8 @@ class Comment(MPTTModel):
 
     def __str__(self):
         return str("{}: {}...".format(self.name, self.content[:50]))
+
+
+class Rating(models.Model):
+    'TODO: 5-star rating'
+    pass

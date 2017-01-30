@@ -1,0 +1,17 @@
+{% for post in recent_posts %}
+    <div class="media">
+        <div class="media-left">
+            <a href="{% url 'post_detail' post.slug %}" title="{{ post.title }}">
+                <img class="media-object" src="{{ post.image.url }}" alt="{{ post.title }}">
+            </a>
+        </div>
+        <div class="media-body">
+            <h4 class="media-heading"><a href="{% url 'post_detail' post.slug %}">{{ post.title }}</a></h4>
+            <ul>
+                <li><a href="{% url 'posts_by_author' post.author.username %}">{{ post.author }}</a></li>
+                <li>{{ post.modified }}</li>
+            </ul>
+        </div>
+    </div>
+{% endfor %}
+
